@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { pestoPost } from "../../actions/pestoActions";
 import jwt_decode from "jwt-decode";
-import Img from "react-image";
 
 class ProfLanding extends Component {
   constructor() {
@@ -54,8 +53,20 @@ class ProfLanding extends Component {
       console.log("Profile = ",profile);
       const userobj = jwt_decode(localStorage.getItem("jwtToken"));
       console.log("Posted-by : ",userobj.name);
-      const Img = require('react-image');
-      var pimages = require('./Profimages/Ronald.png');
+      var uname = userobj.name.replace(' ','_');
+      console.log("uname = ",uname);
+      var pimages = './Profimages/' + uname + '.jpeg';
+      console.log("HI",pimages);
+      try
+      {
+        var myimg = require(`${pimages}`);
+      }
+      catch(err)
+      {
+        console.log(err);
+        console.log("Image does not exist");
+        pimages = './nprof.gif';
+      }
       //console.log(pimages['Ronald']);
       return (
       <div class = "flow-text">
@@ -64,15 +75,15 @@ class ProfLanding extends Component {
             <div class = "col s3 smallen">
                 <div class="card">
                     <div class="card-image">
-                        <img src = {require('./nprof.gif')}/>
-                        <span class="card-title">Profile</span>
+                        <img src = {require(`${pimages}`)} alt = {require('./nprof.gif')} />
+                        <span class="card-title"></span>
                      </div>
                     <div class="card-content">
                         <p>{userobj.name}</p>
                     </div>
-                    <div class="card-action">
+                    {/*<div class="card-action">
                         <a href="#">Click here to view My resume</a>
-                    </div>
+                    </div>*/}
                 </div> 
            </div>
            <div class = "col s9">
@@ -83,12 +94,13 @@ class ProfLanding extends Component {
                       })}
                     </>
                   </div>
-                  <div class = "bottom-uploader">
-                    <p>Image Upload is a beta feature which couldn't be implemented due to time constraints</p>
+            </div>
+            <div class = "bottom-uploader">
+                    <p>Please Upload Image as Username.jpeg at <u><a href = "https://drive.google.com/open?id=16-twviWMiCrJuBkYklp-PPdDMgSjJdK7">https://drive.google.com/open?id=16-twviWMiCrJuBkYklp-PPdDMgSjJdK7</a></u></p>
+                    <p>Your Profile picture will automatically be updated within a day or two upon review</p>
                   </div>
             </div>
           </div>
-        </div>
         </div>
       );
     }

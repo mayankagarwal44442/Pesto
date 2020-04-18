@@ -1,0 +1,263 @@
+{
+	"info": {
+		"_postman_id": "f1eb9359-e0f9-43c9-bb41-c2b21dbd881e",
+		"name": "Pesto",
+		"description": "All requests sent to an interactive blogging platform called PESTO.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"s\",\n\t\"email\" : \"e@g.com\",\n\t\"password\" : \"passwprd\",\n\t\"password2\" : \"passwprd\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"register"
+					]
+				},
+				"description": "Create a ew user"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\" : \"e@g.com\",\n\t\"password\" : \"passwprd\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"login"
+					]
+				},
+				"description": "Login to Account"
+			},
+			"response": []
+		},
+		{
+			"name": "Post A Pesto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"pestoId\" : 17,\n\t\"posted_by\" : \"Test1\",\n\t\"timestamp\" : \"04-12-2021:59-59-22\",\n\t\"post\"\t\t: \"Hi I am fine!!!\",\n\t\"visible\"\t: \"all\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/pestos/post",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"pestos",
+						"post"
+					]
+				},
+				"description": "Post something interesting"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Pestos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/pestos/display",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"pestos",
+						"display"
+					]
+				},
+				"description": "Get a list of all pestos currently posted"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Pesto",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"pestoid\" : 14\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/pestos/remove",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"pestos",
+						"remove"
+					]
+				},
+				"description": "Delete a Peso with a given Pestoid"
+			},
+			"response": []
+		},
+		{
+			"name": "UserAdmin - Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/admin/User-Admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"User-Admin"
+					]
+				},
+				"description": "List of all users"
+			},
+			"response": []
+		},
+		{
+			"name": "PestoAdmin Request ",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/admin/Pesto-Admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"Pesto-Admin"
+					]
+				},
+				"description": "List all Pesto's"
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Profile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"s\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/pestos/myprof",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"pestos",
+						"myprof"
+					]
+				},
+				"description": "Request to display the user profile."
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Delete ALL Posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "Deletes all posts"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

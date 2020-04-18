@@ -3,16 +3,20 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { pestoPost } from "../../actions/pestoActions";
 import jwt_decode from "jwt-decode";
+import {encode,decode,assign_codes,remove_frequencies,buildtree,sort_on_freqs,calc_frequency} from "../../Utils/Huffman_Denc";
 
 class dbLanding extends Component {
   constructor() {
     super();
     this.state = {
       post: "",
+      postHash:[],
       postId: {},
       visible : "all",
       readablePosts:[],
-      isloaded : false
+      isloaded : false,
+
+      mypost : {}
     };
   }
 
@@ -36,9 +40,14 @@ class dbLanding extends Component {
     console.log("Posted-by : ",userobj.name);
     var cdate = Date();
     cdate = cdate.toString();
+    let trimmed_tree = remove_frequencies(buildtree(sort_on_freqs(calc_frequency(this.state.post))));
+    this.state.post = encode(trimmed_tree,this.state.post);
+    console.log("TT=",trimmed_tree);
+    this.state.postHash = trimmed_tree;
     const userData = {
           pestoid : 3,
           post: this.state.post,
+          postHash: trimmed_tree,
           posted_by:userobj.name,
           timestamp : cdate,
           visible : "all"
@@ -50,6 +59,34 @@ class dbLanding extends Component {
     
     render() {
       const {readablePosts} = this.state;
+      let posters = JSON.parse(JSON.stringify(this.state.readablePosts));
+      ////console.log(posters);
+      ////console.log(posters[0][0].post);
+      //var trimmed_tree;
+      posters.forEach(poster => {
+        //console.log("pp=",poster.post);
+        var s = poster.post;
+        console.log("poster.post",s);
+        console.log("racoon",poster.postHash);
+        if (poster.post !== undefined)
+        {
+          //trimmed_tree = remove_frequencies(buildtree(sort_on_freqs(calc_frequency(s))));
+          //console.log("TT = ",trimmed_tree);
+          //console.log(decode(trimmed_tree,poster.post));
+          poster.post = decode(poster.postHash,s);
+          console.log("mp",poster.post);
+        }
+      });
+      
+      
+      //for (i = 0;i < posters.length;i++)
+      //{
+      //  trimmed_tree = remove_frequencies(buildtree(sort_on_freqs(calc_frequency(posters[i].post))));
+      //}
+      //readablePosts.reverse().map((key) => {
+      //  let trimmed_tree = remove_frequencies(buildtree(sort_on_freqs(calc_frequency(this.state.post))));
+      //  key.post = decode(trimmed_tree,key.post);
+      //  })
       return (
         <div class = "container">
           <form noValidate onSubmit={this.onSubmit}>
@@ -76,7 +113,8 @@ class dbLanding extends Component {
             </form>
         <div class = "scroll">
         <>
-          {readablePosts.reverse().map((key) => {
+          {posters.reverse().map((key) => {
+            console.log(key.post);
             return <div class = "flow-text card-panel blue-grey lighten - 4 pestostyle"><i class="material-icons tsize">ac_unit</i>{key.posted_by}<div class = "pestotext">{key.post}</div></div>
             })}
         </>

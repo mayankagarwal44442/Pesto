@@ -15,6 +15,10 @@ const PestoSchema = new Schema({
     post:{
         type: String
     },
+    postHash:{
+        type:Array,
+        default:[]
+    },
     visible : [{type : String }]
 });
 

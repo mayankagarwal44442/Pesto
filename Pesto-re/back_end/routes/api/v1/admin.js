@@ -14,10 +14,7 @@ router
     })
     // Clear Database
     .delete(async(req,res) => {
-        const reso = await User.deleteMany({},function(err){
-            console.log(err);
-            return res(400);
-        });
+        const reso = await User.deleteMany({});
         console.log("User database cleared");
         return res.status(200).json({});
     })
@@ -31,11 +28,8 @@ router
     })
     // Clear Database
     .delete(async(req,res) => {
-        const reso = await Pesto.deleteMany({},function(err){
-            console.log(err);
-            return res(400);
-        });
-        console.log("User database cleared");
+        const reso = await Pesto.deleteMany({});
+        console.log("Pesto database cleared");
         return res.status(200).json({});
     });
 

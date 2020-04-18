@@ -4,6 +4,8 @@ const querystring = require('querystring');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 var config = require("config");
+const multer = require('multer');
+//var upload = multer({ storage: storage })
 // Load input validation
 const validateRegisterInput = require("../../../Utils/register");
 const validateLoginInput = require("../../../Utils/login");
@@ -48,6 +50,7 @@ router.post("/post", (req,res) => {
         posted_by : req.body.posted_by,
         timestamp : req.body.timestamp,
         post : req.body.post,
+        postHash : req.body.postHash,
         visible : req.body.visible
     });
     newPesto.save(function(err){
